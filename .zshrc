@@ -1,8 +1,8 @@
 # ------------------------------------ System -----------------------------------
 if [[ $OSTYPE == darwin* ]]; then
-    DOTFILES=macos
+    DOTFILES_OS=macos
 else
-    DOTFILES=linux
+    DOTFILES_OS=linux
 fi
 
 # ----------------------------------- Locale -----------------------------------
@@ -12,7 +12,7 @@ export LC_CTYPE=en_US.UTF-8
 
 # ------------------------------- PATH / toolchains -----------------------------
 
-if [[ "$OSTYPE" == macos ]]; then
+if [[ -d "/opt/homebrew/bin" ]]; then
     export PATH="/opt/homebrew/bin:$PATH"
 fi
 export VIRTUAL_ENV_DISABLE_PROMPT=1
