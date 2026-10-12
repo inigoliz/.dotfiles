@@ -100,6 +100,10 @@ prompt_vcs() {
 PROMPT=$'\n'
 PROMPT+='%F{71}$(virtualenv_info)%f'
 PROMPT+='%F{166}%n%f'                                   # username
+# On Linux or over SSH, append @host so remote shells are easy to tell apart
+if [[ -n $SSH_CONNECTION || $OSTYPE != darwin* ]]; then
+    PROMPT+='%F{15}@%f%F{166}%m%f'
+fi
 PROMPT+='%F{15} in %f'
 PROMPT+='%F{71}%~%f'                                    # working directory
 PROMPT+='$(prompt_vcs)%f'                               # jj change/bookmark/desc, else git
@@ -108,5 +112,10 @@ PROMPT+='%F{15}$ %f'
 
 PROMPT2='%F{228}→ %f'
 
-# Set the terminal title to the current directory basename.
-precmd() { print -Pn "\e]0;%1~\a"; }
+# Set the terminal title to the current directory basename, prefixed with the
+# hostname on Linux or over SSH.
+if [[ -n $SSH_CONNECTION || $OSTYPE != darwin* ]]; then
+    precmd() { print -Pn "\e]0;%m: %1~\a"; }
+else
+    precmd() { print -Pn "\e]0;%1~\a"; }
+fi

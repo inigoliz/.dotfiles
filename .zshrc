@@ -12,7 +12,7 @@ export LC_CTYPE=en_US.UTF-8
 
 # ------------------------------- PATH / toolchains -----------------------------
 
-if [[ -d "/opt/homebrew/bin" ]]; then
+if [[ "$OSTYPE" == macos ]]; then
     export PATH="/opt/homebrew/bin:$PATH"
 fi
 export VIRTUAL_ENV_DISABLE_PROMPT=1
