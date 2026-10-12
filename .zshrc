@@ -19,7 +19,7 @@ export VIRTUAL_ENV_DISABLE_PROMPT=1
 
 # --------------------------- Aliases & personal files --------------------------
 # These files are plain `export`/`alias` definitions, valid in zsh too.
-for file in ~/.dotfiles_personal/.{env_variables,aliases}; do
+for file in ~/.dotfiles/.{env_variables,aliases}; do
     [ -r "$file" ] && [ -f "$file" ] && source "$file"
 done
 [ -r ~/.aliases ] && [ -f ~/.aliases ] && source ~/.aliases

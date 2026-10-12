@@ -18,7 +18,7 @@ export LC_CTYPE=en_US.UTF-8
 # ~/.path can be used to extend `$PATH`.
 # ~/.extra can be used for other settings you don’t want to commit.
 
-for file in ~/.dotfiles_personal/.{path,bash_prompt_style,exports,aliases,functions,extra,env_variables}; do
+for file in ~/.dotfiles/.{path,bash_prompt_style,exports,aliases,functions,extra,env_variables}; do
     if [ -r "$file" ] && [ -f "$file" ]; then
         source "$file"
     fi

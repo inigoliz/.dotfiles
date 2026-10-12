@@ -5,8 +5,8 @@ function fish_greeting
 end
 
 # Committed aliases
-if test -r ~/.dotfiles_personal/.aliases
-    source ~/.dotfiles_personal/.aliases
+if test -r ~/.dotfiles/.aliases
+    source ~/.dotfiles/.aliases
 end
 
 # Local non-committed aliases
