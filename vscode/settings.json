@@ -8,7 +8,14 @@
         "notebook.focusedEditorBorder": "#DB9833",
         "sash.hoverBorder": "#DB9833",
         "textLink.foreground": "#DB9833",
-        "textLink.activeForeground": "#E8A93D"
+        "textLink.activeForeground": "#E8A93D",
+        "diffEditor.insertedLineBackground": "#19331e",
+        "diffEditor.insertedTextBackground": "#21482a",
+        "diffEditorGutter.insertedLineBackground": "#21482a",
+        "diffEditorOverview.insertedForeground": "#3fb950aa"
+    },
+    "editor.tokenColorCustomizations": {
+        "comments": "#858585"
     },
     "notebook.output.textLineLimit": 100,
     "editor.fontSize": 15,
@@ -75,4 +82,5 @@
         "editor.defaultFormatter": "tamasfe.even-better-toml"
     },
     "editor.inlineSuggest.edits.showCollapsed": true,
+    "diffEditor.renderSideBySide": false,
 }
