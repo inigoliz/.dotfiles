@@ -1,10 +1,20 @@
+# ------------------------------------ System -----------------------------------
+if [[ $OSTYPE == darwin* ]]; then
+    DOTFILES=macos
+else
+    DOTFILES=linux
+fi
+
 # ----------------------------------- Locale -----------------------------------
 export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 export LC_CTYPE=en_US.UTF-8
 
 # ------------------------------- PATH / toolchains -----------------------------
-export PATH="/opt/homebrew/bin:$PATH"
+
+if [[ -d "/opt/homebrew/bin" ]]; then
+    export PATH="/opt/homebrew/bin:$PATH"
+fi
 export VIRTUAL_ENV_DISABLE_PROMPT=1
 
 # --------------------------- Aliases & personal files --------------------------
@@ -96,8 +106,16 @@ add-zsh-hook precmd __cmd_timer_precmd
 # Lazy init: we define a stub that performs the real initialization on first use, then hands
 # off to the real `conda`. (auto_activate/changeps1 are persisted in ~/.condarc,
 # so they don't need to be set on every startup.)
-__CONDA_BASE="/opt/homebrew/Caskroom/miniconda/base"
-conda() {
+# The base dir is the Homebrew cask on macOS; on Linux it's wherever the
+# installer put it (usually ~/miniconda3 or ~/miniforge3). The stub is only
+# defined if one of them exists.
+for __CONDA_BASE in \
+    /opt/homebrew/Caskroom/miniconda/base \
+    ~/miniconda3 ~/miniforge3 ~/anaconda3 /opt/miniconda3 /opt/conda; do
+    [[ -x $__CONDA_BASE/bin/conda ]] && break
+    __CONDA_BASE=''
+done
+[[ -n $__CONDA_BASE ]] && conda() {
     unset -f conda  # prevent infinite recursion
     local __conda_setup
     if ! __conda_setup="$("$__CONDA_BASE/bin/conda" 'shell.zsh' 'hook' 2>/dev/null)"; then
@@ -122,8 +140,15 @@ zstyle ':completion:*:descriptions' format '%F{166}%d%f'
 command -v jj >/dev/null 2>&1 && source <(COMPLETE=zsh jj)
 
 # ------------------------- Fish-like interactive plugins -----------------------
+if [[ $DOTFILES_OS == macos ]]; then
+    __plugin_dir=/opt/homebrew/share
+else
+    __plugin_dir=/usr/share
+fi
+
 # Gray inline suggestion from history (accept with → / End).
-source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh 2>/dev/null
+source $__plugin_dir/zsh-autosuggestions/zsh-autosuggestions.zsh 2>/dev/null
 
 # Syntax highlighting MUST be sourced last.
-source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh 2>/dev/null
+source $__plugin_dir/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh 2>/dev/null
+unset __plugin_dir

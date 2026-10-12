@@ -1,8 +1,8 @@
 # Dotfiles
 
-This repo contains the macOS setup that I like to make my machine feel cozy.
+This repo contains the setup that I like to make my machine feel cozy. It's mainly intended for macOS, but some settings will work with Linux as well.
 
-> **Note:** May _you_, the curious wanderer who ended up here, use it for inspiration. But be warned that it comes at your very own responsibility.
+> **Note:** May _you_, the curious wanderer, use these dotfiles for inspiration, but be warned that they comes with no guarantee of working in your machine.
 
 ## Configure Ghostty (zsh)
 
@@ -10,9 +10,18 @@ Ghostty is configured with Fish as the default shell, using a custom Solarized D
 
 1. Install Ghostty and syntax tools:
 
+macos:
 ```bash
-brew install ghostty zsh-syntax-highlighting zsh-autosuggestions
+brew install zsh-syntax-highlighting zsh-autosuggestions
+brew install --cask font-google-sans-code   # or download from Google Fonts
 ```
+
+linux:
+```bash
+sudo apt install zsh zsh-autosuggestions zsh-syntax-highlighting
+```
+
+Also, generate the `en_US.UTF8` locale with sudo `locale-gen en_US.UTF-8`, install conda, and install `Google Sans Code`.
 
 2. Symlink the Ghostty config:
 
@@ -21,12 +30,23 @@ mkdir -p ~/.config/ghostty
 ln -s ~/.dotfiles/ghostty/config ~/.config/ghostty/config
 ```
 
+3. Add the zsh profile
+```bash
+echo 'source ~/.dotfiles/.zshrc' >> ~/.zshrc
+```
+
 > **IMP:** In `ghostty/config`, uncomment the section corresponding to `zsh`.
 
-5. Remove the 'Last login ...' message:
+5. Remove the 'Last login ...' message (only macos):
 
 ```bash
 touch ~/.hushlogin
+```
+
+6. Check that the config loads with no errors:
+
+```bash
+ghostty +validate-config
 ```
 
 <p align="center">

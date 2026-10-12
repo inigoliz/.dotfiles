@@ -1,4 +1,7 @@
-# Font
+# Shared by macOS and Linux. Options that only apply to one OS are accepted on
+# both and silently ignored where they don't apply. See README.md in this folder
+# for what to install on each system.
+
 font-family = Google Sans Code
 font-size = 15
 
@@ -15,6 +18,8 @@ window-save-state = always
 background = 000000
 foreground = ffffff
 background-opacity = 0.98
+
+# Blur works on macOS and on Linux under KDE Plasma; elsewhere only the opacity applies.
 background-blur = 20
 
 # Selection (from Terminal.app: #755337)
@@ -26,16 +31,21 @@ selection-foreground = ffffff
 palette = 4=#FFB500
 palette = 12=#FFB500
 
-# macOS-specific
+# macOS-specific (ignored on Linux, where Alt already behaves as Alt)
 macos-titlebar-style = transparent
 macos-option-as-alt = true
+
+# Shell: uncomment exactly one block.
+# /bin/zsh and /bin/bash exist on macOS and on any Linux distro with a merged
+# /usr, such as Ubuntu; check with `which zsh`.
 
 # Zsh shell
 command = /bin/zsh -l
 shell-integration = zsh
 
 # Fish shell
-#command = /opt/homebrew/bin/fish -l
+#command = /opt/homebrew/bin/fish -l   # macOS (Homebrew)
+#command = /usr/bin/fish -l            # Linux
 #shell-integration = fish
 
 # Bash shell
@@ -47,4 +57,5 @@ shell-integration-features = no-cursor
 # Behavior
 confirm-close-surface = true
 mouse-hide-while-typing = true
-copy-on-select = true
+# `clipboard` copies selections to the regular clipboard on both systems.
+copy-on-select = clipboard
